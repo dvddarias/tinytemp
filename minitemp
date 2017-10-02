@@ -1,0 +1,14 @@
+#!/usr/bin/python
+from string import Template
+import argparse
+import sys
+import json
+#Input parameter parsing
+parser = argparse.ArgumentParser(description='Simple file template engine.')
+parser.add_argument('-f', '--file', type=argparse.FileType('r'), default = sys.stdin, help="Input template (default: stdin).")
+parser.add_argument('-d', '--data', dest="data", type=json.loads, default="{}", help="JSON dictionary", required=True)
+parser.add_argument("-o", "--output", type=argparse.FileType('w'), help="Output file (default: stdout)", default = sys.stdout)
+args = parser.parse_args()
+#Read, substitute and write
+result = Template(args.file.read()).substitute(args.data)
+args.output.write(result)
