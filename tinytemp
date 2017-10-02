@@ -12,3 +12,4 @@ args = parser.parse_args()
 #Read, substitute and write
 result = Template(args.file.read()).substitute(args.data)
 args.output.write(result)
+args.output.close()
